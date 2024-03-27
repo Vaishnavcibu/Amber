@@ -1,2 +1,2 @@
 # Amber
-Its a uber but for ambulance
+Uber but for Ambulance
