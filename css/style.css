@@ -772,7 +772,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 30px 30px 0 30px;
   margin: 30px 15px;
   text-align: center;
-  min-height: 350px;
+  min-height: 200px;
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
 }
 
