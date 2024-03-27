@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Amber</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="img/favicon.svg" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font awesome cdn -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/login.css" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;1,100;1,400&display=swap');
+/* ---------------------------
+# General
+------------------------------*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    background: #0c2e8a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* color: #444; */
+    transition: 0.5s;
+}
+body.active{
+    background: #50d8af;
+}
+.container{
+    position: relative;
+    width: 800px;
+    height: 500px;
+    margin: 20px;
+    /* background: #ff0; */
+}
+.blueBg{
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    height: 420px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    /* box-shadow: 0.5px 45px rgba(0, 0, 0, 0.15); */
+    box-shadow: -1px 0px 20px 0px rgb(0 ,0 ,0, 25%);
+}
+.blueBg .box{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.blueBg .box h2{
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.blueBg .box button{
+    cursor: pointer;
+    padding: 10px 20px;
+    background: #fff;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+}
+.formBx{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    /* box-shadow: 0.5px 45px rgba(0, 0, 0, 0.25); */
+    box-shadow: -1px 0px 20px 0px rgb(0 ,0 ,0, 10%);
+    transition: 0.7s ease-in-out;
+    overflow: hidden;
+}
+.formBx.active{
+    left: 50%;
+}
+.formBx .form{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding: 50px;
+    transition: 0.5s;
+}
+.formBx .form form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.formBx .signInForm{
+    transition-delay: 0.25s;
+}
+.formBx.active .signInForm{
+    left: -100%;
+    transition-delay: 0s;
+}
+.formBx .signUpForm{
+    left: 100%;
+    transition-delay: 0.25s;
+}
+.formBx.active .signUpForm{
+    left: 0;
+}
+
+.formBx .form form h3{
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+.formBx .form form input{
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    outline: none;
+    font-size: 16px;
+    border: 1px solid #333;
+}
+.formBx .form form input[type="submit"]{
+    background: #0c2e8a;
+    border: none;
+    color: #fff;
+    max-width: 100px;
+    cursor: pointer;
+}
+.formBx.active .signUpForm input[type="submit"]{
+    background: #50d8af;
+}
+.formBx .form form .forgot{
+    color: #333;
+}
+.icons{
+    color: #50d8af;
+    width: 24px;
+    height: 24px;
+    /* display: inline; */
+}
+.icons:hover{
+    color: #0c2e8a;
+}
+@media (max-width: 991px){
+    .container{
+        max-width: 400px;
+        height: 650px;
+        justify-content: center;
+        align-items: center;
+    }
+    .container .blueBg{
+        top: 0;
+        right: 0;
+        height: 100%;
+    }
+    .formBx{
+        width: 100%;
+        height: 500px;
+        top: 0;
+        box-shadow: none;
+    }
+    .blueBg .box{
+        position: absolute;
+        width: 100%;
+        height: 150px;
+        bottom: 0;
+    }
+    .box.signin{
+        top: 0;
+    }
+    .formBx.active{
+        left: 0;
+        top: 150px;
+    }
+}
+
+
+  </style>
+
+</head>
+
+<body id="body">
+  <div class="container">
+    <div class="blueBg">
+        <div class="box signin">
+            <h2>Already Have an Account ?</h2>
+            <button class="signInBtn">Log In</button>
+        </div>
+        <div class="box signup">
+            <h2>Don't Have an Account ?</h2>
+            <button class="signUpBtn">Sign Up</button>
+        </div>
+    </div>
+    <div class="formBx">
+        <div class="form signInForm">
+            <form>
+                <h3>Log In </h3>
+                <input type="email" placeholder="Email Address">
+                <input type="password" placeholder="Password">
+                <input type="submit" value="Login">
+                <a href="#" class="forgot">Forgot Password</a>
+            </form>
+        </div>
+
+        <div class="form signUpForm">
+            <form>
+                <h3>Sign Up</h3>
+                <!-- <input type="text" placeholder="Username"> -->
+                <input type="email" placeholder="Email Address">
+                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Confirm Password">
+                <input type="submit" value="Register">
+                <p><a href="#" class="icons"><i class="fa-brands fa-google"></i></a></p>
+                <a href="#" class="forgot">Forgot Password</a>
+            </form>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    const signInBtn = document.querySelector('.signInBtn');
+    const signUpBtn = document.querySelector('.signUpBtn');
+    const formBx = document.querySelector('.formBx');
+    const body = document.querySelector('body');
+
+    signUpBtn.onclick = function () {
+        formBx.classList.add('active')
+        body.classList.add('active')
+    }
+    signInBtn.onclick = function () {
+        formBx.classList.remove('active')
+        body.classList.remove('active')
+    }
+  </script>
+</body>
+</html>
