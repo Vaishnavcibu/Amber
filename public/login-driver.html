@@ -225,27 +225,28 @@ body.active{
     </div>
     <div class="formBx">
         <div class="form signInForm">
-            <form>
+            <form action="/driver/login" method="POST">
                 <h3>Log In </h3>
-                <input type="email" placeholder="Email Address">
-                <input type="text" placeholder="Driver ID">
-                <input type="password" placeholder="Password">
-                <input type="submit" value="Login">
-                <a href="#" class="forgot">Forgot Password</a>
+                <input type="email" placeholder="Email Address" name="email" required>
+                <input type="text" placeholder="Driver ID" name="uniqueId" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <a href="./driver-panel.html"><input type="submit" value="Login"></a>
+                <a href="" class="forgot">Forgot Password</a>
             </form>
         </div>
+        
 
         <div class="form signUpForm">
-            <form>
+            <form action="/driver/register" method="POST">
                 <h3>Sign Up</h3>
-                <input type="text" placeholder="Full Name">
-                <input type="number" placeholder="Mobile Number">
-                <input type="email" placeholder="Email Address">
-                <input type="password" placeholder="Password">
+                <input type="text" placeholder="Full Name" name="name" required>
+                <input type="number" placeholder="Mobile Number" name="phoneNo" required>
+                <input type="email" placeholder="Email Address" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
                 <input type="submit" value="Register">
                 <a href="#" class="forgot">Forgot Password</a>
             </form>
-        </div>
+        </div>        
     </div>
   </div>
 
@@ -263,6 +264,67 @@ body.active{
         formBx.classList.remove('active')
         body.classList.remove('active')
     }
+    //register
+    document.querySelector('.signUpForm form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+        const formData = {
+            name: this.querySelector('input[name="name"]').value,
+            phoneNo: this.querySelector('input[name="phoneNo"]').value,
+            email: this.querySelector('input[name="email"]').value,
+            password: this.querySelector('input[name="password"]').value,
+        };
+
+        fetch('/driver/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status) {
+                window.location.href = '/driver-panel.html';
+            } else {
+                alert("(Error Code:404) Something went wrong!");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    //login
+    document.querySelector('.signInForm form ').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    const formData = new FormData(this);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const uniqueId = formData.get('uniqueId');
+    const dataToSend = JSON.stringify({ email, password, uniqueId });
+
+    fetch('/driver/login', { 
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: dataToSend,
+    })
+    .then(response => response.json())
+    .then(data => {console.log(data)})
+    // .then(data => {
+    //     if (data.status) {
+    //         localStorage.setItem('token', data.token);
+    //         // Redirect to driver-panel.html
+    //         window.location.href = '/driver-panel.html';
+    //     } else {
+    //         alert('Login failed: ' + data.msg);
+    //     }
+    // })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+});
+
+
+
   </script>
 </body>
 </html>
