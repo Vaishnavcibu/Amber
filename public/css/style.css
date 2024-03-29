@@ -14,6 +14,16 @@
   }
 }
 
+@media (max-width: 769px) {
+  .bi-box-arrow-in-right {
+    display: none;
+  }
+}
+
+#start-driver-loc-button {
+  background-color: #50d8af;
+  border-color: #50d8af;
+}
 
 body {
   background: #fff;

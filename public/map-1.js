@@ -7,7 +7,7 @@ attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreet
 }).addTo(map);
 
 
-let user_marker, ambulance_marker, user_circle, user, userCord, driverLatitude, driverLongitude, accuracy;
+let driver_marker, ambulance_marker, driver_circle, user, userCord, driverLatitude, driverLongitude, accuracy;
 let isFirstSuccess = true;
 let isSecondSuccess = false;
 const amulanceIcon  = L.icon({
@@ -28,7 +28,7 @@ document.querySelector('#start-driver-loc-button').addEventListener('click', () 
 
         e.routes[0].coordinates.forEach(function (coord, index) {
             setTimeout(function () {
-                user_marker.setLatLng([coord.lat, coord.lng]);
+                driver_marker.setLatLng([coord.lat, coord.lng]);
             }, 1000 * index)
         })
 
@@ -38,24 +38,25 @@ document.querySelector('#start-driver-loc-button').addEventListener('click', () 
 
 
 function success(pos) {
-    if(user_marker) {
-        map.removeLayer(user_marker);
+
+    if(driver_marker) {
+        map.removeLayer(driver_marker);
     }
 
-    if(user_circle) {
-        map.removeLayer(user_circle)
+    if(driver_circle) {
+        map.removeLayer(driver_circle)
     }
-    driverLatitude = pos.coords.latitude;
-    driverLongitude = pos.coords.longitude;
-    accuracy = pos.coords.accuracy;
-    console.log(driverLatitude, driverLongitude);
     
-    user_marker = L.marker([driverLatitude, driverLongitude], {icon: amulanceIcon }).addTo(map);
-    user_circle = L.circle([driverLatitude, driverLongitude], {radius: accuracy});
-    user = L.featureGroup([user_marker, user_circle]).addTo(map);
+    
     if (isFirstSuccess) {
+        driverLatitude = pos.coords.latitude;
+        driverLongitude = pos.coords.longitude;
+        accuracy = pos.coords.accuracy;
+        driver_marker = L.marker([driverLatitude, driverLongitude], {icon: amulanceIcon });
+        driver_circle = L.circle([driverLatitude, driverLongitude], {radius: accuracy});
+        user = L.featureGroup([driver_marker, driver_circle]).addTo(map);
         map.fitBounds(user.getBounds());
-        user_marker.bindPopup("<b>You</b>").openPopup(); 
+        driver_marker.bindPopup("<b>You</b>").openPopup(); 
         userCord = getUserCords(driverLatitude, driverLongitude);
         ambulance_marker = L.marker([userCord[0], userCord[1]]).addTo(map);
         isFirstSuccess = false;
@@ -63,15 +64,11 @@ function success(pos) {
 
     }
     else if(isSecondSuccess) {
-        let driverloc = false; // Flag to track whether ride is already requested
+        user = L.featureGroup([driver_marker, driver_circle]).addTo(map);
+        
+        document.getElementById('start-driver-loc-button').addEventListener('click', (e) => {
+        e.target.classList.add('disabled');
 
-document.getElementById('start-driver-loc-button').addEventListener('click', () => {
-    if (driverloc) {
-        console.log("loc already sent.");
-        return; // If ride is already requested, exit the function
-    }
-
-    driverloc = true;
         fetch('http://localhost:3000/driver/location', {
         method: 'POST',
         headers: {
@@ -96,6 +93,9 @@ document.getElementById('start-driver-loc-button').addEventListener('click', () 
             ]
           }).addTo(map);
         isSecondSuccess = false;
+    }
+    else {
+      user = L.featureGroup([driver_marker, driver_circle]).addTo(map);
     }
     
 }
