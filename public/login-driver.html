@@ -308,16 +308,16 @@ body.active{
         body: dataToSend,
     })
     .then(response => response.json())
-    .then(data => {console.log(data)})
-    // .then(data => {
-    //     if (data.status) {
-    //         localStorage.setItem('token', data.token);
-    //         // Redirect to driver-panel.html
-    //         window.location.href = '/driver-panel.html';
-    //     } else {
-    //         alert('Login failed: ' + data.msg);
-    //     }
-    // })
+    // .then(data => {console.log(data)})
+    .then(data => {
+        if (data.status) {
+            localStorage.setItem('token', data.token);
+            // Redirect to driver-panel.html
+            window.location.href = '/driver-panel.html';
+        } else {
+            alert('Login failed: ' + data.msg);
+        }
+    })
     .catch((error) => {
         console.error('Error:', error);
     });

@@ -177,3 +177,44 @@ router.post("/driver/login",async(req,res)=>{
     }
     });
     module.exports=router;
+
+    router.get("/logout",async(req,res)=>{
+        try{
+            var {token}=req.headers;
+            if(token==null || token==undefined)
+            {
+                res.status(200).json(
+                    {
+                        status:false,
+                        msg:"invalid token"
+                    }
+                )
+                return;
+            }
+        var tokenexists=await TokenModel.findOne({token:token})
+           if(tokenexists!=null)
+           {
+            tokenexists.status="Deleted"
+            res.status(200).json(
+                {
+                    status:false,
+                    msg:"token cleared",
+                    token:token
+                }
+            )
+            return;
+           }
+        else{
+            res.status(200).json(
+                {
+                    status:false,
+                    msg:"invalid token",
+                }
+            )
+            return;
+        }
+        }
+        catch(e){
+            console.log(e);
+        }
+        });

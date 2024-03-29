@@ -79,11 +79,7 @@
         <ul class="nav-menu">
           <li class="menu-active"><a href="index.html">Home</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li class="menu-has-children"><a href="#">Login</a>
-            <ul>
-              <li><a href="./login-driver.html"><i class="bi bi-box-arrow-in-right"></i> Driver Login</a></li>
-            </ul>
-          </li>
+          <li class="menu-has-children"><a href="#" id="logoutLink">Logout</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -225,6 +221,32 @@
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
-
+  <script>
+    document.getElementById('logoutLink').addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent the default link behavior
+    fetch('/logout', {
+        method: 'GET', // Or 'POST' if you change your backend route to use POST
+        headers: {
+            'Content-Type': 'application/json',
+            // Assuming you store your token in localStorage or sessionStorage
+            'token': localStorage.getItem('token') || ''
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // For debugging
+        if(data.status === false && data.msg === "token cleared") {
+            // Handle successful logout (e.g., redirecting to login page)
+            window.location.href = '/index.html'; // Redirect to your login page
+        } else {
+            // Handle logout error or invalid token scenario
+            alert(data.msg);
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+});
+  </script>
 </body>
 </html>
